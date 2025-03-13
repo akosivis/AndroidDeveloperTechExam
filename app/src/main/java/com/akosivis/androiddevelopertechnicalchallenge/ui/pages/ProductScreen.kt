@@ -3,6 +3,7 @@ package com.akosivis.androiddevelopertechnicalchallenge.ui.pages
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -145,7 +146,17 @@ fun ProductListScreen(
                     }
                 }
                 is ProductListUiState.Loading -> {
-                    Column (modifier = Modifier.fillMaxSize()) {
+                    Column (
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
                         Text(
                             text = "Loading",
                             textAlign = TextAlign.Center,

@@ -15,7 +15,6 @@ class AppNavigationActions(navController: NavHostController) {
                 saveState = true
             }
             launchSingleTop = true
-            restoreState = true
         }
     }
     val navigateToProductList: () -> Unit = {
