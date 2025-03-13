@@ -1,15 +1,18 @@
 package com.akosivis.androiddevelopertechnicalchallenge.ui.pages
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -50,11 +53,23 @@ fun ProductItemScreen(
                         viewModel.fetchProductItem(it)
                     }
 
-                    Text(
-                        text = "Loading",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineSmall
-                    )
+                    Column (
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
+                        Text(
+                            text = "Loading",
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.headlineSmall
+                        )
+                    }
                 }
                 is ProductItemUiState.Success -> {
                     Column(
@@ -104,11 +119,17 @@ fun ProductItemScreen(
                     }
                 }
                 is ProductItemUiState.Error -> {
-                    Text(
-                        text = uiState.message,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineSmall
-                    )
+                    Column (
+                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Cannot load the item! Please try again!",
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                    }
                 }
             }
     }
