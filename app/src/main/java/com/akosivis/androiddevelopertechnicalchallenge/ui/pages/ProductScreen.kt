@@ -137,7 +137,6 @@ fun ProductListScreen(
                             ProductListItem(product, navToProductItem)
                         }
 
-                        // Show loading indicator at the end of the list when loading more movies
                         item {
                             if (viewModel.isListLoading) {
                                 ProductListItemLoading()
@@ -165,11 +164,15 @@ fun ProductListScreen(
                     }
                 }
                 is ProductListUiState.Error -> {
-                    Column (modifier = Modifier.fillMaxSize()) {
+                    Column (
+                        modifier = Modifier.fillMaxSize().padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
                         Text(
-                            text = uiState.message,
+                            text = "Cannot load the items! Please try again later!",
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.headlineLarge
+                            style = MaterialTheme.typography.headlineMedium
                         )
                     }
                 }
@@ -235,15 +238,6 @@ fun ProductListItemLoading() {
 
 
 fun LazyListState.reachedBottom(): Boolean {
-//    return layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
-//    val visibleItemsInfo = layoutInfo.visibleItemsInfo
-//    return if (layoutInfo.totalItemsCount == 0) {
-//        false
-//    } else {
-//        val lastVisibleItem = visibleItemsInfo.last()
-//        val viewportHeight = layoutInfo.viewportEndOffset + layoutInfo.viewportStartOffset
-//        (lastVisibleItem.index + 1 == layoutInfo.totalItemsCount && lastVisibleItem.offset + lastVisibleItem.size <= viewportHeight)
-//    }
     val lastItem = layoutInfo.visibleItemsInfo.lastOrNull()
     return lastItem == null || (lastItem.index == layoutInfo.totalItemsCount - 1 && lastItem.size + lastItem.offset <= layoutInfo.viewportEndOffset)
 }
